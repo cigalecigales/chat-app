@@ -12,8 +12,12 @@ class Message extends React.Component<MessageProps> {
     return (
       <MessageStyle>
         <div className="user">
-          <div>{this.props.userName}</div>
-          <div>{this.props.time}</div>
+          <div className="name">
+            {this.props.userName}
+          </div>
+          <div className="time">
+            {this.props.time}
+          </div>
         </div>
         <div className="message">
           {this.props.message}
@@ -24,8 +28,21 @@ class Message extends React.Component<MessageProps> {
 }
 
 const MessageStyle = styled.div`
+  margin: 30px 0px;
+
   .user {
     display: flex;
+    align-items: center;
+
+    .name {
+      font-weight: bold;
+    }
+
+    .time {
+      font-size: 14px;
+      margin-left: 10px;
+      color: #4d4d4d;
+    }
   }
 `;
 
