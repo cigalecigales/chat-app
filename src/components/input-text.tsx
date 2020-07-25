@@ -7,10 +7,6 @@ interface InputTextProps {
 }
 
 class InputText extends React.Component<InputTextProps> {
-  // onTextChange(e: React.FormEvent<HTMLDivElement>) {
-  //   const text = e.currentTarget.textContent
-  // }
-
   render() {
     return (
       <InputTextStyle>
