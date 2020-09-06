@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import InputText from './input-text';
 import Button from './button';
 
-interface JoinChatRoomModalProps {
+interface JoinChatRoomProps {
   // ユーザー名が入力された場合のイベント
   onInputText: ((e: React.FormEvent<HTMLDivElement>) => void);
   // ユーザー名入力欄からフォーカスが外れた場合のイベント
@@ -13,10 +13,10 @@ interface JoinChatRoomModalProps {
   onClickButton: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void);
 }
 
-class JoinChatRoomModal extends React.Component<JoinChatRoomModalProps> {
+class JoinChatRoom extends React.Component<JoinChatRoomProps> {
   render() {
     return (
-      <JoinChatRoomModalStyle>
+      <JoinChatRoomStyle>
         <div className="input">
           <InputText
             placeholder="ユーザー名"
@@ -31,12 +31,12 @@ class JoinChatRoomModal extends React.Component<JoinChatRoomModalProps> {
             primary
           />
         </div>
-      </JoinChatRoomModalStyle>
+      </JoinChatRoomStyle>
     )
   }
 }
 
-const JoinChatRoomModalStyle = styled.div`
+const JoinChatRoomStyle = styled.div`
   display: grid;
   grid-template-rows: 80px;
   grid-template-columns: 1fr 80px;
@@ -47,4 +47,4 @@ const JoinChatRoomModalStyle = styled.div`
   }
 `;
 
-export default JoinChatRoomModal;
+export default JoinChatRoom;
