@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface UserProps {
+  // ユーザー名
   name: string;
 }
 

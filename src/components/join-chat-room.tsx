@@ -4,39 +4,39 @@ import styled from 'styled-components';
 import InputText from './input-text';
 import Button from './button';
 
-interface CreateMessageProps {
-  // メッセージが入力された場合のイベント
+interface JoinChatRoomModalProps {
+  // ユーザー名が入力された場合のイベント
   onInputText: ((e: React.FormEvent<HTMLDivElement>) => void);
-  // メッセージ入力欄からフォーカスが外れた場合のイベント
+  // ユーザー名入力欄からフォーカスが外れた場合のイベント
   onBlurText: ((e: React.FormEvent<HTMLDivElement>) => void);
-  // 投稿ボタンがクリックされた場合のイベント
+  // 入室ボタンがクリックされた場合のイベント
   onClickButton: ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void);
 }
 
-class CreateMessage extends React.Component<CreateMessageProps> {
+class JoinChatRoomModal extends React.Component<JoinChatRoomModalProps> {
   render() {
     return (
-      <CreateMessageStyle>
+      <JoinChatRoomModalStyle>
         <div className="input">
           <InputText
-            placeholder="メッセージ"
+            placeholder="ユーザー名"
             onInput={this.props.onInputText}
             onBlur={this.props.onBlurText}
           />
         </div>
         <div className="button">
           <Button
-            name="投稿"
+            name="入室"
             onClick={this.props.onClickButton}
             primary
           />
         </div>
-      </CreateMessageStyle>
+      </JoinChatRoomModalStyle>
     )
   }
 }
 
-const CreateMessageStyle = styled.div`
+const JoinChatRoomModalStyle = styled.div`
   display: grid;
   grid-template-rows: 80px;
   grid-template-columns: 1fr 80px;
@@ -47,4 +47,4 @@ const CreateMessageStyle = styled.div`
   }
 `;
 
-export default CreateMessage;
+export default JoinChatRoomModal;

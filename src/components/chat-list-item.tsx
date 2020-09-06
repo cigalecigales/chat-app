@@ -6,19 +6,23 @@ import * as H from 'history';
 import Button from './button';
 
 interface ChatListItemProps extends RouteComponentProps {
+  // チャットルーム名
   name: string;
+  // チャットルームの人数
   numberOfPeople: number;
-  roomId: number;
+  // チャットルームID
+  roomId: string;
+  // 履歴
   history: H.History;
 }
 
 class ChatListItem extends React.Component<ChatListItemProps> {
-  constructor(props: ChatListItemProps) {
-    super(props);
-    this.handlePage.bind(this);
-  }
-
+  
+  /*
+  * 入室ボタンクリック時の処理
+  */
   handlePage() {
+    // チャットルームページに遷移
     this.props.history.push('/room?roomId=' + this.props.roomId);
   }
 
@@ -32,7 +36,11 @@ class ChatListItem extends React.Component<ChatListItemProps> {
           {this.props.numberOfPeople} 人
         </div>
         <div className="button">
-          <Button name="入室" onClick={() => this.handlePage()} primary />
+          <Button
+            name="入室"
+            onClick={() => this.handlePage()}
+            primary
+          />
         </div>
       </ChatListItemStyle>
     )
@@ -69,4 +77,5 @@ const ChatListItemStyle = styled.div`
   }
 `;
 
+// 子コンポーネントで History API を使いたいので withRouter を使用
 export default withRouter(ChatListItem);

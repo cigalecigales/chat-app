@@ -3,27 +3,32 @@ import styled from 'styled-components';
 
 import Message from './message';
 
-export interface MessageData {
-  id: string;
+export interface MessageItem {
+  // 履歴ID
+  logId: number;
+  // ユーザー名
   userName: string;
+  // 投稿日時
   time: string;
+  // メッセージ
   message: string;
 }
 
 interface MessageListProps {
-  messages: MessageData[];
+  messages: MessageItem[];
 }
 
 class MessageList extends React.Component<MessageListProps> {
   render() {
     return (
       <MessageListStyle>
-        {this.props.messages.map((item: MessageData) => {
+        {this.props.messages && this.props.messages.map((item: MessageItem) => {
           return <Message
                     userName={item.userName}
                     time={item.time}
                     message={item.message}
-                    key={item.id} />
+                    key={item.logId}
+                  />
         })}
       </MessageListStyle>
     )

@@ -2,8 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface MessageProps {
+  // ユーザー名
   userName: string;
+  // 投稿時間
   time: string;
+  // メッセージ
   message: string;
 }
 

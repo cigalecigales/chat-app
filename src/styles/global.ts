@@ -1,4 +1,4 @@
-import { css } from '@emotion/core'
+import { css } from '@emotion/core';
 
 const globals = css`
   html, body {
@@ -10,6 +10,7 @@ const globals = css`
     overscroll-behavior: none; 
     padding: 0;
     margin: 0;
+    overflow: hidden;
   }
 
   *:focus {
