@@ -1,22 +1,27 @@
 import React from 'react';
 
 import ChatListItem from './chat-list-item';
-import { Room } from '../types/store';
+
+export interface ChatListData {
+  roomId: string;
+  name: string;
+  users: []
+}
 
 interface ChatListProps {
-  data: Room[];
+  data: ChatListData[];
 }
 
 class ChatList extends React.Component<ChatListProps> {
   render() {
     return (
       <div>
-        {this.props.data && this.props.data.map((item: Room) => {
+        {this.props.data && this.props.data.map((item: ChatListData) => {
           return <ChatListItem
                     name={item.name} 
                     numberOfPeople={item.users.length} 
-                    roomId={item.id}
-                    key={item.id}
+                    roomId={item.roomId}
+                    key={item.roomId}
                   />
         })}
       </div>

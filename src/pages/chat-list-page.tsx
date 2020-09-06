@@ -1,34 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
-import { RouteComponentProps, withRouter } from 'react-router';
-import * as H from 'history';
 
-import ChatList from '../components/chat-list';
+import ChatList, { ChatListData } from '../components/chat-list';
 import Button from '../components/button';
 import CreateChatRoomModal from '../components/create-chat-room-modal';
-import { ApplicationState } from '../store';
-import { getRoomsList, connectWebSocket, createRoom } from '../store/actions';
-import { Room } from '../types/store';
 
-interface ChatListPageProps extends RouteComponentProps {
-  // チャットルーム一覧
-  rooms: Room[];
-  // 履歴
-  history: H.History;
-  // チャットルーム一覧取得
-  getRoomsList: typeof getRoomsList;
-  // WebSocketへの接続
-  connectWebSocket: typeof connectWebSocket;
-  // チャットルーム作成
-  createRoom: typeof createRoom;
+const data: ChatListData[] = [{
+  roomId: 'ROOM_1',
+  name: 'チャットルーム 1',
+  users: []
+}, {
+  roomId: 'ROOM_2',
+  name: 'チャットルーム 2',
+  users: []
+}, {
+  roomId: 'ROOM_3',
+  name: 'チャットルーム 3',
+  users: []
+}];
+
+interface ChatListPageProps {
 }
 
 interface ChatListPageState {
   // チャットルーム作成モーダルの表示／非表示フラグ
   isCreateChatRoomModalShow: boolean;
-  // チャットルーム名
-  chatRoomName: string;
 }
 
 class ChatListPage extends React.Component<ChatListPageProps, ChatListPageState> {
@@ -38,20 +34,7 @@ class ChatListPage extends React.Component<ChatListPageProps, ChatListPageState>
     // ステートの初期化
     this.state = {
       isCreateChatRoomModalShow: false,
-      chatRoomName: ''
     };
-  }
-
-  /**
-   * コンポーネントがマウントされた際の処理
-   */
-  componentDidMount() {
-    // WebSocketへの接続
-    this.props.connectWebSocket();
-    setTimeout(() => {
-      // チャットルーム一覧の取得
-      this.props.getRoomsList();
-    }, 1000);
   }
 
   /**
@@ -67,39 +50,9 @@ class ChatListPage extends React.Component<ChatListPageProps, ChatListPageState>
    * チャットルーム作成処理
    */
   createChatRoom(): void {
-    // チャットルーム名が入力されている場合
-    if (this.state.chatRoomName) {
-      this.props.createRoom({
-        roomName: this.state.chatRoomName
-      });
-      this.setState({
-        isCreateChatRoomModalShow: false
-      });
-    }
-  }
-
-  /**
-   * チャットルーム名取得処理
-   * 
-   * @param e フォームイベント
-   */
-  getChatRoomName(e: React.FormEvent<HTMLDivElement>): void {
-    // チャットルーム名入力欄に入力した内容を取得し、ステートに設定
-    const text: string | null = e.currentTarget.textContent;
     this.setState({
-      chatRoomName: text ? text : ''
+      isCreateChatRoomModalShow: false
     });
-  }
-
-  /**
-   * チャットルーム名クリア処理
-   * 
-   * @param e フォームイベント
-   */
-  clearChatRoomName(e: React.FormEvent<HTMLDivElement>): void {
-    // チャットルーム名入力欄からフォーカスアウトした場合に
-    // 入力欄に入力した内容をクリアする
-    e.currentTarget.textContent = '';
   }
 
   render() {
@@ -116,12 +69,12 @@ class ChatListPage extends React.Component<ChatListPageProps, ChatListPageState>
           </div>
         </div>
         
-        <ChatList data={this.props.rooms} />
+        <ChatList data={data} />
 
         <CreateChatRoomModal
           onClickButton={() => this.createChatRoom()}
-          onBlurText={(e) => this.clearChatRoomName(e)}
-          onInputText={(e) => this.getChatRoomName(e)}
+          onBlurText={() => {}}
+          onInputText={() => {}}
           isShow={this.state.isCreateChatRoomModalShow}
         />
 
@@ -129,16 +82,6 @@ class ChatListPage extends React.Component<ChatListPageProps, ChatListPageState>
     )
   }
 }
-
-const mapStateToProps = ({ app }: ApplicationState) => ({
-  rooms: app.rooms
-});
-
-const mapDispatchToProps = ({
-  getRoomsList,
-  connectWebSocket,
-  createRoom
-});
 
 const ChatListPageStyle = styled.div`
   padding: 20px;
@@ -156,8 +99,4 @@ const ChatListPageStyle = styled.div`
   }
 `;
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(ChatListPage))
-;
+export default ChatListPage;
